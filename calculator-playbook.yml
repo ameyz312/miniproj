@@ -1,9 +1,7 @@
----
-- name: Copy jar file to remoter server
-  hosts: remoteserver
+- name: Pull and Run docker image
+  hosts: all
   tasks:
-  - copy:
-      src: ./target/calculator-devops-1.0-SNAPSHOT-jar-with-dependencies.jar
-      dest: ~/
-
-
+    - name: Pull ameyaameya/scientific_calculator
+      docker_image:
+        name: ameyaameya/scientific_calculator
+        source: pull
