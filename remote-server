@@ -1,2 +1,2 @@
 [remoteserver]
-192.168.1.8 ansible_user=calculator
+172.17.0.1 ansible_user=ameya
