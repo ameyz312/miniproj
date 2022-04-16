@@ -1,5 +1,5 @@
 - name: Pull and Run docker image
-  hosts: all
+  hosts: remoteserver
   tasks:
     - name: Pull ameyaameya/scientific_calculator
       docker_image:
