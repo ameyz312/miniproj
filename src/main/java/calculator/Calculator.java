@@ -16,7 +16,7 @@ public class Calculator {
     public Calculator() {}
 
     public double squareRoot(double number1) {
-        double result;
+        double result = 0;
         try {
             result = Math.sqrt(number1);
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public class Calculator {
 
 
     public double naturalLog(double number1) {
-        double result;
+        double result = 0;
         try {
             result = Math.log(number1);
         } catch (ArithmeticException e) {
