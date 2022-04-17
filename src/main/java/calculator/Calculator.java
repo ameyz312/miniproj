@@ -15,50 +15,35 @@ public class Calculator {
 
     public Calculator() {}
 
-    public double add(double number1, double number2) {
-        logger.info("[ADDITION] - " + number1 + ", " + number2);
-        double result = number1 + number2;
-        logger.info("[RESULT - ADDITION] - " + result);
-        return result;
-    }
-
-    public double subtract(double number1, double number2) {
-        logger.info("[SUBTRACTION] - " + number1 + ", " + number2);
-        double result = number1 - number2;
-        logger.info("[RESULT - SUBTRACTION] - " + result);
-        return result;
-    }
-
-
-    public double multiply(double number1, double number2) {
-        logger.info("[MULTIPLICATION] - " + number1 + ", " + number2);
-        double result = number1 * number2;
-        logger.info("[RESULT - MULTIPLICATION] - " + result);
-        return result;
-    }
-
-    public double divide(double number1, double number2) {
-        double result = 0;
+    public double squareRoot(double number1) {
+        double result;
         try {
-            logger.info("[DIVISION] - " + number1 + ", " + number2);
-            if (number1 == 0 && number2 == 0) {
-                result = Double.NaN;
-                throw new ArithmeticException("Case of NaN 0.0/0.0");
-            } else if (number1 > 0 && number2 == 0) {
-                result = Double.POSITIVE_INFINITY;
-                throw new ArithmeticException("Case of Positive Infinity 1.0/0.0");
-            } else if (number1 <= -1 && number2 == 0) {
-                result = Double.NEGATIVE_INFINITY;
-                throw new ArithmeticException("Case of Negative Infinity -1.0/0.0");
-            } else {
-                result = number1 / number2;
-            }
-        } catch (ArithmeticException error) {
-            logger.error("[EXCEPTION - DIVISION] - Cannot be divided by ZERO " + error.getLocalizedMessage());
-        } finally {
-            logger.info("[RESULT - DIVISION] - " + result);
+            result = Math.sqrt(number1);
+        } catch (Exception e) {
+            logger.error("Error - " + e);
         }
         return result;
+    }
+
+    public double factorial(double number1) {
+        if (number1 == 0) return 1;
+        if (number1 < 0) return -1;
+        return number1 * factorial(number1 - 1);
+    }
+
+
+    public double naturalLog(double number1) {
+        double result;
+        try {
+            result = Math.log(number1);
+        } catch (ArithmeticException e) {
+            logger.error("Error - " + e);
+        }
+        return result;
+    }
+
+    public double power(double number1, double number2) {
+        return Math.pow(number1, number2);
     }
 
     public static void main(String[] args) {
@@ -66,9 +51,9 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
         double number1, number2;
         do {
-            System.out.println("Calculator-DevOps, Choose to perform operation..... Ameya's Calc");
-            System.out.print("Press 1 to Add\nPress 2 to Subtract\nPress 3 to Multiply\nPress 4 to Divide\n" +
-                    "Press any other key to exit\nEnter your choice: ");
+            System.out.println("Ameya's Calculator -");
+            System.out.print("Press 1 for Square root.\nPress 2 for Factorial.\nPress 3 for Natural log.\nPress 4 for Power function.\n" +
+                    "Press any other non-numerical key to exit the calculator.\nEnter your choice: ");
             int choice;
             try {
                 choice = scanner.nextInt();
@@ -76,30 +61,31 @@ public class Calculator {
                 return;
             }
             try {
-                System.out.print("Enter the first number : ");
+                System.out.print("Enter the number : ");
                 number1 = scanner.nextDouble();
-                System.out.print("Enter the second number : ");
-                number2 = scanner.nextDouble();
             } catch (InputMismatchException error) {
-                logger.error("Invalid input, Entered input is not a number");
+                logger.error("Entered input is not a number. Invalid.");
                 return;
             }
             switch (choice) {
                 case 1:
-                    // do addition
-                    System.out.println("Addition result is : " + calculator.add(number1, number2));
+                    System.out.println("Square root result is : " + calculator.squareRoot(number1));
                     break;
                 case 2:
-                    // do subtraction
-                    System.out.println("Subtraction result is : " + calculator.subtract(number1, number2));
+                    System.out.println("Factorial result is : " + calculator.factorial(number1));
                     break;
                 case 3:
-                    // do multiplication
-                    System.out.println("Multiplication result is : " + calculator.multiply(number1, number2));
+                    System.out.println("Natural Log result is : " + calculator.naturalLog(number1));
                     break;
                 case 4:
-                    // do division
-                    System.out.println("Division result is : " + calculator.divide(number1, number2));
+                    try {
+                        System.out.print("Enter the power : ");
+                        number2 = scanner.nextDouble();
+                    } catch (InputMismatchException error) {
+                        logger.error("Entered input is not a number. Invalid.");
+                        return;
+                    }
+                    System.out.println("Power result is : " + calculator.power(number1, number2));
                     break;
                 default:
                     System.out.println("Exiting....");
